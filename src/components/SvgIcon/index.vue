@@ -17,7 +17,11 @@ svg 图标
 
 <script setup>
 import { isExternal as external } from '@/utils/validate'
+
+// defineProps 和 defineEmits 都是只在 <script setup> 中才能使用的编译器宏。
+// 他们不需要导入且会随着 <script setup> 处理过程一同被编译掉
 import { defineProps, computed } from 'vue'
+
 const props = defineProps({
   // icon 图标
   icon: {
