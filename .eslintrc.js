@@ -1,6 +1,11 @@
 // ESLint 配置文件遵循 commonJS 的导出规则，所导出的对象就是 ESLint 的配置对象
 // 文档：https://eslint.bootcss.com/docs/user-guide/configuring
 module.exports = {
+  globals: {
+    // 这两个在<script setup> 模块中不用导入，直接使用
+    defineProps: 'readonly',
+    defineEmits: 'readonly'
+  },
   // 表示当前目录即为根目录，ESLint 规则将被限制到该目录下
   root: true,
   // env 表示启用 ESLint 检测的环境
