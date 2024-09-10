@@ -2,6 +2,7 @@ import { login } from '@/api/sys'
 import md5 from 'md5'
 import { setItem, getItem } from '@/utils/storage'
 import { TOKEN } from '@/constant'
+import router from '@/router'
 
 // 本地缓存处理方案：2- Vuex 全局状态管理
 export default {
@@ -37,9 +38,12 @@ export default {
             // 所以data不用再多次... data.data.data.token
 
             this.commit('user/setToken', data.token)
+            // 跳转到 layout 界面
+            router.push('/')
             resolve()
           })
           .catch(err => {
+            // router.push('/')
             reject(err)
           })
       })
