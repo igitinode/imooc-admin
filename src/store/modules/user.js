@@ -3,6 +3,7 @@ import md5 from 'md5'
 import { setItem, getItem } from '@/utils/storage'
 import { TOKEN } from '@/constant'
 
+// 本地缓存处理方案：2- Vuex 全局状态管理
 export default {
   namespaced: true, // 此模块的单独模块，不会被合并到主模块里面去
   state: () => ({
