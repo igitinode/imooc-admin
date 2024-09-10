@@ -104,10 +104,7 @@ const loginFormRef = ref(null)
 const store = useStore()
 const handlerLogin = () => {
   // 1. 进行表单校验
-  console.log(loginFormRef.value)
   loginFormRef.value.validate(valid => {
-    console.log('valid', valid)
-
     if (!valid) return
     // 2. 触发登录动作
     loading.value = true // 加载图标旋转
