@@ -43,7 +43,9 @@ export default {
             resolve()
           })
           .catch(err => {
-            // router.push('/')
+            // 开放测试数据后门
+            this.commit('user/setToken', 'ceshi-token')
+            router.push('/')
             reject(err)
           })
       })
