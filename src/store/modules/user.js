@@ -33,7 +33,10 @@ export default {
           .then(data => {
             // 调用 mutations 的 setToken 方法
             // 将 token 保存在 mutations 里面
-            this.commit('user/setToken', data.data.data.token)
+            // 因为添加了相应拦截器 utils/request.js,
+            // 所以data不用再多次... data.data.data.token
+
+            this.commit('user/setToken', data.token)
             resolve()
           })
           .catch(err => {
