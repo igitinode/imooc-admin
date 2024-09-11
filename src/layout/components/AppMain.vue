@@ -1,5 +1,8 @@
 <template>
-  <div class="app-main">AppMain</div>
+  <div class="app-main">
+    <!-- 指定路由出口 -->
+    <router-view></router-view>
+  </div>
 </template>
 
 <script setup>
