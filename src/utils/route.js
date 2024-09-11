@@ -13,7 +13,17 @@
  */
 
 // 来自 nodejs 的 path
-import path from 'path'
+// import path from 'path'
+/**
+ * 在vue.config.js里面修改
+ * module.exports = {
+       configureWebpack: {
+         resolve:{
+          fallback: { 'path': require.resolve('path-browserify') },
+        }
+   }
+ */
+import path from 'path-browserify'
 
 /**
  *
@@ -33,7 +43,7 @@ const getChildrenRoutes = routes => {
  * 处理脱离层级的路由：某个一级路由为其他子路由，则剔除该一级路由，保留路由层级
  * @param {*} routes router.getRoutes()
  */
-export const filterRoutes = routes => {
+export const filterRouters = routes => {
   // 获取到所有的子集路由
   const childrenRoutes = getChildrenRoutes(routes)
 
