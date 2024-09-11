@@ -1,8 +1,10 @@
 import { login, getUserInfo } from '@/api/sys'
 import md5 from 'md5'
-import { setItem, getItem } from '@/utils/storage'
 import { TOKEN } from '@/constant'
 import router from '@/router'
+
+// 本地缓存 LocalStorage 的操作
+import { setItem, getItem, removeAllItem } from '@/utils/storage'
 
 // 本地缓存处理方案：2- Vuex 全局状态管理
 export default {
@@ -61,6 +63,22 @@ export default {
       const res = await getUserInfo()
       this.commit('user/setUserInfo', res)
       return res
+    },
+    /**
+     * 退出登录
+     */
+    logout() {
+      // 1. 清理掉当前用户缓存数据
+      // 1.1 清理 token
+      this.commit('user/setToken', '')
+      // 1.2 清理 userInfo
+      this.commit('user/setUserInfo', {})
+      // 1.3 删除本地缓存
+      removeAllItem()
+      // 2. 清理掉权限相关配置
+      // TODO
+      // 返回到登录页
+      router.push('/login')
     }
   }
 }
