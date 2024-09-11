@@ -3,6 +3,7 @@
  */
 
 import axios from 'axios'
+import store from '@/store'
 import { ElMessage } from 'element-plus'
 
 const service = axios.create({
@@ -11,12 +12,27 @@ const service = axios.create({
 })
 
 // 请求拦截
-service.interceptors.request.use(config => {
-  // 添加 icode, 慕课网是课程菜单获取
-  config.headers.icode = 'D14A56B294C3AA0D'
-  // 必须返回 config
-  return config
-})
+service.interceptors.request.use(
+  // 请求成功处理函数
+  config => {
+    // 添加 icode, 慕课网是课程菜单获取
+    // 统一注人
+    config.headers.icode = 'D14A56B294C3AA0D'
+    // 必须返回 config
+
+    // 在这里统一注入token
+    if (store.getters.token) {
+      config.headers.Authorization = `Bearer ${store.getters.token}`
+    }
+    return config
+  },
+  // 请求失败处理函数
+  error => {
+    // 拦截失败处理逻辑
+    ElMessage.error(error.message)
+    return Promise.reject(new Error(error))
+  }
+)
 
 // 响应拦截器
 // http://axios-js.com/zh-cn/docs/index.html#%E6%8B%A6%E6%88%AA%E5%99%A8
