@@ -6,6 +6,9 @@ import router from '@/router'
 // 本地缓存 LocalStorage 的操作
 import { setItem, getItem, removeAllItem } from '@/utils/storage'
 
+// 保存登录时间戳
+import { setTimeStamp } from '@/utils/auth'
+
 // 本地缓存处理方案：2- Vuex 全局状态管理
 export default {
   namespaced: true, // 此模块的单独模块，不会被合并到主模块里面去
@@ -45,6 +48,8 @@ export default {
             this.commit('user/setToken', data.token)
             // 跳转到 layout 界面
             router.push('/')
+            // 保存登录时间
+            setTimeStamp()
             resolve()
           })
           .catch(err => {

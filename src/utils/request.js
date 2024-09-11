@@ -6,6 +6,9 @@ import axios from 'axios'
 import store from '@/store'
 import { ElMessage } from 'element-plus'
 
+// 判断是否超时
+import { isCheckTimeout } from '@/utils/auth'
+
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API,
   timeout: 5000
@@ -22,6 +25,13 @@ service.interceptors.request.use(
 
     // 在这里统一注入token
     if (store.getters.token) {
+      // 请求之前统一处理是否超时登录
+      if (isCheckTimeout()) {
+        // 超时, 退出，token 的失效主动处理
+        store.dispatch('user/logout')
+        return Promise.reject(new Error('token 失效, 请重新登录'))
+      }
+
       config.headers.Authorization = `Bearer ${store.getters.token}`
     }
     return config
