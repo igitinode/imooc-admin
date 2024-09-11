@@ -61,6 +61,19 @@ service.interceptors.response.use(
   },
   error => {
     // 拦截失败处理逻辑
+    // 服务端 token 过期, 与服务端约定状态码是：401
+    if (
+      error.response &&
+      error.response.data &&
+      error.response.data.code === 401
+    ) {
+      // 回到登陆界面
+      store.dispatch('user/logout')
+    }
+    // 只允许单用户登录，与服务端约定状态码是：40X
+    // TODO: 单用户登录状态码处理情况
+
+    // 其他错误处理
     ElMessage.error(error.message)
     return Promise.reject(new Error(error))
   }
