@@ -24,7 +24,6 @@ import AppMain from './components/AppMain.vue'
 
 // :export 导出的对象
 import variables from '@/styles/variables.module.scss'
-console.log(variables)
 </script>
 
 <style lang="scss" scoped>

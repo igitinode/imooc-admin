@@ -26,6 +26,10 @@
 
 <script setup>
 import {} from 'vue'
+import { useRouter } from 'vue-router'
+const router = useRouter()
+console.log(router)
+console.log(router.getRoutes())
 </script>
 
 <style lang="scss" scoped></style>
