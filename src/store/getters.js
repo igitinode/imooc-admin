@@ -2,6 +2,7 @@
 // 注意，getters 的属性其实是从 state 里面获取过来重新定义的
 const getters = {
   token: state => state.user.token,
+  userInfo: state => state.user.userInfo,
   /**
    *
    * @returns true 表示用户信息已存在
