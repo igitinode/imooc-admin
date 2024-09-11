@@ -43,9 +43,10 @@ export default {
             resolve()
           })
           .catch(err => {
+            // 有 icode 就不用打开了
             // 开放测试数据后门
-            this.commit('user/setToken', 'ceshi-token')
-            router.push('/')
+            // this.commit('user/setToken', 'ceshi-token')
+            // router.push('/')
             reject(err)
           })
       })

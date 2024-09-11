@@ -23,13 +23,13 @@ import Sidebar from './components/Sidebar'
 import AppMain from './components/AppMain.vue'
 
 // :export 导出的对象
-import variables from '@/styles/variables.scss'
+import variables from '@/styles/variables.module.scss'
 console.log(variables)
 </script>
 
 <style lang="scss" scoped>
 @import '~@/styles/mixin.scss';
-@import '~@/styles/variables.scss';
+@import '~@/styles/variables.module.scss';
 
 .app-wrapper {
   @include clearfix;

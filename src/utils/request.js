@@ -10,6 +10,14 @@ const service = axios.create({
   timeout: 5000
 })
 
+// 请求拦截
+service.interceptors.request.use(config => {
+  // 添加 icode, 慕课网是课程菜单获取
+  config.headers.icode = 'D14A56B294C3AA0D'
+  // 必须返回 config
+  return config
+})
+
 // 响应拦截器
 // http://axios-js.com/zh-cn/docs/index.html#%E6%8B%A6%E6%88%AA%E5%99%A8
 service.interceptors.response.use(
