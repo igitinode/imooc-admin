@@ -1,4 +1,4 @@
-import { login } from '@/api/sys'
+import { login, getUserInfo } from '@/api/sys'
 import md5 from 'md5'
 import { setItem, getItem } from '@/utils/storage'
 import { TOKEN } from '@/constant'
@@ -9,13 +9,17 @@ export default {
   namespaced: true, // 此模块的单独模块，不会被合并到主模块里面去
   state: () => ({
     // 初始值, 刷新以及重进浏览器的时候自动获取token
-    token: getItem(TOKEN) || ''
+    token: getItem(TOKEN) || '',
+    userInfo: {}
   }),
   mutations: {
     setToken(state, token) {
       state.token = token
       // 将 token 存一份在 localStorage 中
       setItem(TOKEN, token)
+    },
+    setUserInfo(state, userInfo) {
+      state.userInfo = userInfo
     }
   },
   actions: {
@@ -27,7 +31,6 @@ export default {
       // 无论登录成功还是失败，都希望在组建里面进行处理，
       return new Promise((resolve, reject) => {
         login({
-          icode: 'hellosunday',
           username,
           password: md5(password)
         })
@@ -50,6 +53,14 @@ export default {
             reject(err)
           })
       })
+    },
+    /**
+     * 获取用户信息
+     */
+    async getUserInfo(context) {
+      const res = await getUserInfo()
+      this.commit('user/setUserInfo', res)
+      return res
     }
   }
 }
