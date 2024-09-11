@@ -1,6 +1,16 @@
 // 功能：提供快捷访问方式，减少...的引用
+// 注意，getters 的属性其实是从 state 里面获取过来重新定义的
 const getters = {
-  token: state => state.user.token
+  token: state => state.user.token,
+  /**
+   *
+   * @returns true 表示用户信息已存在
+   */
+  hasUserInfo: state => {
+    // 不能简单使用 return !state.user.userInfo
+    // 因为用户信息初始值是一个对象必须要格式化过,不等于空对象
+    return JSON.stringify(state.user.userInfo) !== '{}'
+  }
 }
 
 export default getters

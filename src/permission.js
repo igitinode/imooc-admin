@@ -11,17 +11,25 @@ const whiteList = ['/login']
  * from： 你从哪里来
  * next：是否要去？
  */
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   // 1. 用户已登录，则不允许进入 login
   // 2. 用户未登录，只允许进入 login
   // 用户是否已登录，根据 token 的值
   // 快捷访问token，避免这种格式 store.state.user.token
+  // 存在 token ，进入主页
   if (store.getters.token) {
     // 1. 用户已登录，则不允许进入 login
     if (to.path === '/login') {
       next('/')
     } else {
       // 不是的话就正常跳转
+      // 判断用户资料是否存在，如果不存在，则获取用户信息
+      if (!store.getters.hasUserInfo) {
+        // dispatch 异步 action 动作,await 让当前操作变成同步操作
+        // 出现接口401错误，手动删除 localStorage 的token，因为过期了。
+        // 完成退出方案之后就不需要手动删除了
+        await store.dispatch('user/getUserInfo')
+      }
       next()
     }
   } else {
