@@ -11,7 +11,31 @@
 </template>
 
 <script setup>
-import {} from 'vue'
+import { ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
+const breadcrumDate = ref([])
+
+// 生成数组数据
+const getBreadcrumData = () => {
+  // 当前路由的标准化路由记录数组  route.matched
+  breadcrumDate.value = route.matched.filter(
+    item => item.meta && item.meta.title
+  )
+  console.log(breadcrumDate.value)
+}
+
+// 监听路由表变化
+watch(
+  route,
+  () => {
+    getBreadcrumData()
+  },
+  {
+    immediate: true
+  }
+)
 </script>
 
 <style lang="scss" scoped>
