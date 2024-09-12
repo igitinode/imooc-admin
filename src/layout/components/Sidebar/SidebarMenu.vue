@@ -4,6 +4,7 @@
   <!-- router 是解决路由跳转问题 -->
   <el-menu
     :uniqueOpened="true"
+    :collapse="!$store.getters.sidebarOpened"
     :default-active="activeMenu"
     :background-color="$store.getters.cssVar.menuBg"
     :text-color="$store.getters.cssVar.menuText"

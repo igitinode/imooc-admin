@@ -15,7 +15,8 @@ const getters = {
     // 因为用户信息初始值是一个对象必须要格式化过,不等于空对象
     return JSON.stringify(state.user.userInfo) !== '{}'
   },
-  cssVar: state => variables
+  cssVar: state => variables,
+  sidebarOpened: state => state.app.sidebarOpened
 }
 
 export default getters
