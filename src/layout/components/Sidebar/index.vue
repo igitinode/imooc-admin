@@ -2,8 +2,8 @@
   <div class="">
     <div class="logo-container">
       <el-avatar
-        :size="logoHeight"
         shape="square"
+        :size="logoHeight"
         src="https://m.imooc.com/static/wap/static/common/img/logo-small@2x.png"
       />
       <h1 class="logo-title" v-if="$store.getters.sidebarOpened">
@@ -21,12 +21,13 @@ import SidebarMenu from './SidebarMenu.vue'
 import {} from 'vue'
 
 const logoHeight = 44
+
 </script>
 
 <style lang="scss" scoped>
 .logo-container {
-  height: v-bind(logoHeight) + 'px';
   padding: 10px 0 22px 0;
+  height: v-bind(logoHeight) + 'px';
   display: flex;
   align-items: center;
   justify-content: center;
