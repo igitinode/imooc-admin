@@ -1,5 +1,5 @@
 <template>
-  <div class="">{{ $t('msg.test') }}</div>
+  <!-- <div class="">{{ $t('msg.test') }}</div> -->
 
   <el-pagination
     :page-size="100"
