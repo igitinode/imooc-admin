@@ -41,6 +41,7 @@ export default {
     closeOther: '关闭其他'
   },
   theme: {
+    title: '提示',
     themeColorChange: '主题色更换',
     themeChange: '主题更换'
   },

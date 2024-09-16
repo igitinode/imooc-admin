@@ -29,6 +29,7 @@
 
 <script setup>
 import { ref } from 'vue'
+import SelectColor from './components/SelectColor.vue'
 
 const selectColorVisible = ref(false)
 const handleSetTheme = command => {

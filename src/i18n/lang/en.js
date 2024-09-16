@@ -41,6 +41,7 @@ export default {
     closeOther: 'Close Others'
   },
   theme: {
+    title: 'remind',
     themeColorChange: 'Theme Color Change',
     themeChange: 'Theme Change'
   },
