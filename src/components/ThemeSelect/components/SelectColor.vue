@@ -1,10 +1,5 @@
 <template>
-  <el-dialog
-    title="{{ $t('msg.theme.title') }}"
-    :model-value="modelValue"
-    @close="closed"
-    width="22%"
-  >
+  <el-dialog title="提示" :model-value="modelValue" @close="closed" width="22%">
     <div class="center">
       <p class="title">{{ $t('msg.theme.themeColorChange') }}</p>
       <el-color-picker
@@ -78,7 +73,7 @@ const comfirm = async () => {
   // 1.2 写入最新主题色
   // writeNewStyle(newStyleText)
   // 2. 保存最新的主题色
-  // store.commit('theme/setMainColor', mColor.value)
+  store.commit('theme/setMainColor', mColor.value)
   // 3. 关闭 dialog
   closed()
 }
