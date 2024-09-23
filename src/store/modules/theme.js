@@ -1,15 +1,18 @@
 import { MAIN_COLOR, DEFAULT_COLOR } from '@/constant'
 import { getItem, setItem } from '@/utils/storage'
+import variables from '@/styles/variables.module.scss'
 
 export default {
   namespaced: true,
   state: () => ({
-    mainColor: getItem(MAIN_COLOR) || DEFAULT_COLOR
+    mainColor: getItem(MAIN_COLOR) || DEFAULT_COLOR,
+    variables: variables
   }),
   mutations: {
     // 每一个state 一般都有一个 mutations 对应
     setMainColor(state, newColor) {
       state.mainColor = newColor
+      state.variables.menuBg = newColor
       setItem(MAIN_COLOR, newColor)
     }
   },

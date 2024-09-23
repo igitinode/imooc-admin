@@ -21,7 +21,6 @@ import SidebarMenu from './SidebarMenu.vue'
 import {} from 'vue'
 
 const logoHeight = 44
-
 </script>
 
 <style lang="scss" scoped>
@@ -38,6 +37,9 @@ const logoHeight = 44
     line-height: 50px;
     font-size: 16px;
     white-space: nowrap;
+  }
+  .el-avatar {
+    --el-avatar-background-color: none;
   }
 }
 </style>
