@@ -20,7 +20,7 @@ service.interceptors.request.use(
   config => {
     // 添加 icode, 慕课网是课程菜单获取
     // 统一注人
-    config.headers.icode = 'D14A56B294C3AA0D'
+    config.headers.icode = '1447BBC8A3A04429'
     // 必须返回 config
 
     // 在这里统一注入token
