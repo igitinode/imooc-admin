@@ -28,7 +28,8 @@
 
 <script setup>
 import { computed, ref } from 'vue'
-import { filterRoutes, generateMenus } from '@/utils/route'
+import { filterRoutes } from '@/utils/route'
+import { generateRoutes } from './FuseData'
 import { useRouter } from 'vue-router'
 import Fuse from 'fuse.js'
 
@@ -37,7 +38,7 @@ const router = useRouter()
 const searchPool = computed(() => {
   // 获得左侧菜单所有的路由
   const routes = filterRoutes(router.getRoutes())
-  return generateMenus(routes)
+  return generateRoutes(routes)
 })
 
 /**
@@ -45,7 +46,7 @@ const searchPool = computed(() => {
  * 第一个参数是 list 数据源
  * 第二个参数是 配置对象
  */
-const fuse = new Fuse(searchPool, {
+const fuse = new Fuse(searchPool.value, {
   // 是否按优先级进行排序
   shouldSort: true,
   // 匹配长度超过这个值的才会被认为是匹配的
@@ -65,8 +66,6 @@ const fuse = new Fuse(searchPool, {
   ]
 })
 
-console.log(fuse)
-
 // 控制 search 显示
 const isShow = ref(false)
 // el-select 实例
@@ -79,8 +78,8 @@ const onShowClick = () => {
 // search 相关
 const search = ref('')
 // 搜索方法
-const querySearch = () => {
-  console.log('querySearch')
+const querySearch = querry => {
+  console.log(fuse.search(querry))
 }
 // 选中回调
 const onSelectChange = () => {
