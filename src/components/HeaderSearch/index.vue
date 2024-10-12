@@ -27,15 +27,17 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { filterRoutes } from '@/utils/route'
 import { generateRoutes } from './FuseData'
 import { useRouter } from 'vue-router'
 import Fuse from 'fuse.js'
+// HeaderSearch 应该具备国际化能力
+import { watchSwitchLang } from '@/utils/i18n'
 
 // 检索数据源:左侧菜单
 const router = useRouter()
-const searchPool = computed(() => {
+let searchPool = computed(() => {
   // 获得左侧菜单所有的路由
   const routes = filterRoutes(router.getRoutes())
   return generateRoutes(routes)
@@ -46,25 +48,32 @@ const searchPool = computed(() => {
  * 第一个参数是 list 数据源
  * 第二个参数是 配置对象
  */
-const fuse = new Fuse(searchPool.value, {
-  // 是否按优先级进行排序
-  shouldSort: true,
-  // 匹配长度超过这个值的才会被认为是匹配的
-  minMatchCharLength: 1,
-  // 将被搜索的键列表。 这支持嵌套路径、加权搜索、在字符串和对象数组中搜索。
-  // name：搜索的键
-  // weight：对应的权重
-  keys: [
-    {
-      name: 'title',
-      weight: 0.7
-    },
-    {
-      name: 'path',
-      weight: 0.3
-    }
-  ]
-})
+
+let fuse
+const initFuse = searchPool => {
+  fuse = new Fuse(searchPool, {
+    // 是否按优先级进行排序
+    shouldSort: true,
+    // 匹配长度超过这个值的才会被认为是匹配的
+    minMatchCharLength: 1,
+    // 将被搜索的键列表。 这支持嵌套路径、加权搜索、在字符串和对象数组中搜索。
+    // name：搜索的键
+    // weight：对应的权重
+    keys: [
+      {
+        name: 'title',
+        weight: 0.7
+      },
+      {
+        name: 'path',
+        weight: 0.3
+      }
+    ]
+  })
+}
+
+// 初始化 fuse
+initFuse(searchPool.value)
 
 // 控制 search 显示
 const isShow = ref(false)
@@ -72,7 +81,8 @@ const isShow = ref(false)
 const headerSearchSelectRef = ref(null)
 const onShowClick = () => {
   isShow.value = !isShow.value
-  // headerSearchSelectRef.value.focus()
+  // 获得焦点
+  headerSearchSelectRef.value.focus()
 }
 
 // search 相关
@@ -90,6 +100,39 @@ const querySearch = query => {
 const onSelectChange = val => {
   router.push(val.path)
 }
+
+/**
+ * 关闭 search 的处理事件
+ */
+const onClose = () => {
+  // 失去焦点
+  headerSearchSelectRef.value.blur()
+  isShow.value = false
+  searchOptions.value = []
+}
+
+/**
+ * 监听 search 打开，处理 close 事件
+ */
+watch(isShow, val => {
+  if (val) {
+    document.body.addEventListener('click', onClose)
+  } else {
+    document.body.removeEventListener('click', onClose)
+  }
+})
+
+// 支持国际化，当语言变化
+watchSwitchLang(() => {
+  // 数据源重新赋值
+  searchPool = computed(() => {
+    // 获得左侧菜单所有的路由
+    const routes = filterRoutes(router.getRoutes())
+    return generateRoutes(routes)
+  })
+  // 语言切换 再次初始化 fuse
+  initFuse(searchPool.value)
+})
 </script>
 
 <style lang="scss" scoped>
