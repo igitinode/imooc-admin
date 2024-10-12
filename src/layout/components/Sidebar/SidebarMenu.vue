@@ -22,13 +22,13 @@
 <script setup>
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { filterRouters, generateMenus } from '@/utils/route'
+import { filterRoutes, generateMenus } from '@/utils/route'
 import SidebarItem from './SidebarItem.vue'
 
 const router = useRouter()
 const routes = computed(() => {
-  const filterRoutes = filterRouters(router.getRoutes())
-  return generateMenus(filterRoutes)
+  const filterRouters = filterRoutes(router.getRoutes())
+  return generateMenus(filterRouters)
 })
 
 // 解决每个菜单默认激活项子菜单问题,并且样式高亮
