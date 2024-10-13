@@ -28,7 +28,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import ContextMenu from './ContextMenu.vue'
 import { useStore } from 'vuex'
@@ -72,6 +72,22 @@ const onCloseClick = index => {
     index
   })
 }
+
+/**
+ * 关闭 contextMenu，通过监听 visible 添加事件
+ */
+const closeMenu = () => {
+  visible.value = false
+}
+watch(visible, val => {
+  // visible：true 打开就增加全局监听事件
+  // visible：false 移除全局监听事件
+  if (val) {
+    document.body.addEventListener('click', closeMenu)
+  } else {
+    document.body.removeEventListener('click', closeMenu)
+  }
+})
 </script>
 
 <style lang="scss" scoped>
