@@ -10,7 +10,7 @@ import { watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { isTags } from '@/utils/tags'
 import { useStore } from 'vuex'
-import { generateTitle } from '@/utils/i18n'
+import { generateTitle, watchSwitchLang } from '@/utils/i18n'
 
 const route = useRoute()
 
@@ -33,6 +33,7 @@ const getTitle = route => {
 // 监听路由的变化，更新 tagsView
 // 存储数 tagsView 据源
 const store = useStore()
+
 watch(
   route,
   (to, from) => {
@@ -59,6 +60,20 @@ watch(
     immediate: true
   }
 )
+
+// 监听国际化回调
+watchSwitchLang(() => {
+  store.getters.tagsViewList.forEach((route, index) => {
+    // tag 解构 route，然后重新覆盖国际化的 title
+    store.commit('app/changeTagsView', {
+      index,
+      tag: {
+        ...route,
+        title: getTitle(route)
+      }
+    })
+  })
+})
 </script>
 
 <style lang="scss" scoped>
