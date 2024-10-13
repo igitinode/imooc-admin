@@ -1,7 +1,15 @@
 <template>
   <div class="app-main">
     <!-- 指定路由出口 -->
-    <router-view></router-view>
+    <!-- 带有切换动画，并且具备组件缓存的，官方文档：代码是固定的 -->
+    <router-view v-slot="{ Component, route }">
+      <!-- 路由切换动画 fade-transform 来自 styles/transition -->
+      <transition name="fade-transform" mode="out-in">
+        <keep-alive>
+          <component :is="Component" :key="route.path" />
+        </keep-alive>
+      </transition>
+    </router-view>
   </div>
 </template>
 
@@ -37,8 +45,6 @@ const store = useStore()
 watch(
   route,
   (to, from) => {
-    console.log(to)
-    console.log(from)
     // tagsView 并不是所有的路由都要保存，比如登录页面、404等
     if (!isTags(to.path)) return
 
@@ -83,7 +89,7 @@ watchSwitchLang(() => {
   width: 100%;
   position: relative;
   overflow: hidden;
-  padding: 61px 20px 20px 20px;
+  padding: 104px 20px 20px 20px;
   box-sizing: border-box;
 }
 </style>
