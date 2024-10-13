@@ -27,7 +27,7 @@ export default {
       // 处理重复 tag
       if (!isFind) {
         state.tagsViewList.push(tag)
-        setItem(TAGS_VIEW, state.addTagsViewList)
+        setItem(TAGS_VIEW, state.tagsViewList)
       }
     }
   },
