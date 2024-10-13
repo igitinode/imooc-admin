@@ -12,7 +12,8 @@
       <div class="fixed-header">
         <!-- 顶部的 navbar -->
         <navbar></navbar>
-        <!-- tags -->
+        <!-- tagsView -->
+        <tags-view></tags-view>
       </div>
       <!-- 内容区 -->
       <app-main></app-main>
@@ -24,6 +25,7 @@
 import Navbar from './components/Navbar.vue'
 import Sidebar from './components/Sidebar'
 import AppMain from './components/AppMain.vue'
+import TagsView from '@/components/TagsView'
 
 // :export 导出的对象
 // import variables from '@/styles/variables.module.scss'
