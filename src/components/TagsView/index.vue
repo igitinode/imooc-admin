@@ -31,8 +31,10 @@
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 import ContextMenu from './ContextMenu.vue'
+import { useStore } from 'vuex'
 
 const route = useRoute()
+const store = useStore()
 
 /**
  * 是否被选中
@@ -42,14 +44,9 @@ const isActive = tag => {
 }
 
 /**
- * 关闭 tag 的点击事件
- */
-const onCloseClick = index => {}
-
-/**
  * 鼠标右键
+ * 展示 menu
  */
-
 const visible = ref(false)
 const menuStyle = ref({
   left: 0,
@@ -58,11 +55,22 @@ const menuStyle = ref({
 const selectIndex = ref(0)
 const openMenu = (e, index) => {
   // 根据 e ($event) 可以得到两个关键的值,x 和 y 坐标
+  // console.log(e)  // $event 有很多信息可以获取
   const { x, y } = e
   menuStyle.value.left = x + 'px'
   menuStyle.value.top = y + 'px'
   selectIndex.value = index
   visible.value = true
+}
+
+/**
+ * 关闭 tag 的点击事件
+ */
+const onCloseClick = index => {
+  store.commit('app/removeTagsView', {
+    type: 'index',
+    index
+  })
 }
 </script>
 
