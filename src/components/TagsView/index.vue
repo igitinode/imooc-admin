@@ -10,6 +10,7 @@
       v-for="(tag, index) in $store.getters.tagsViewList"
       :key="tag.fullPath"
       :to="{ path: tag.fullPath }"
+      @contextmenu.prevent="openMenu($event, index)"
     >
       {{ tag.title }}
       <i
@@ -18,11 +19,19 @@
         @click.prevent.stop="onCloseClick(index)"
       />
     </router-link>
+    <context-menu
+      v-show="visible"
+      :style="menuStyle"
+      :index="selectIndex"
+    ></context-menu>
   </div>
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import { useRoute } from 'vue-router'
+import ContextMenu from './ContextMenu.vue'
+
 const route = useRoute()
 
 /**
@@ -36,6 +45,25 @@ const isActive = tag => {
  * 关闭 tag 的点击事件
  */
 const onCloseClick = index => {}
+
+/**
+ * 鼠标右键
+ */
+
+const visible = ref(false)
+const menuStyle = ref({
+  left: 0,
+  top: 0
+})
+const selectIndex = ref(0)
+const openMenu = (e, index) => {
+  // 根据 e ($event) 可以得到两个关键的值,x 和 y 坐标
+  const { x, y } = e
+  menuStyle.value.left = x + 'px'
+  menuStyle.value.top = y + 'px'
+  selectIndex.value = index
+  visible.value = true
+}
 </script>
 
 <style lang="scss" scoped>
