@@ -3,7 +3,7 @@
     <!-- 汉堡收缩按钮 Hamburger -->
     <hamburger class="hamburger-container" />
     <!-- 面包屑菜单 -->
-    <breadcrumb class="breadcrumb-container" />
+    <breadcrumb id="guide-breadcrumb" class="breadcrumb-container" />
 
     <div class="right-menu">
       <!-- Guide 引导页 -->
