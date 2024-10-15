@@ -3,11 +3,13 @@
     class="pan-item"
     :style="{ zIndex: zIndex, height: height, width: width }"
   >
+    <!--内层 -->
     <div class="pan-info">
       <div class="pan-info-roles-container">
         <slot />
       </div>
     </div>
+    <!-- 外层 -->
     <div :style="{ backgroundImage: `url(${image})` }" class="pan-thumb"></div>
   </div>
 </template>
