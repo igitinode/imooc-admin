@@ -34,6 +34,15 @@ service.interceptors.request.use(
 
       config.headers.Authorization = `Bearer ${store.getters.token}`
     }
+
+    /**
+     * 接口国际化处理：让服务端返回对应国际化的数据
+     * 在接口请求的 headers 中增加 Accept-Languuage 表明当前我们所需要的语言类型
+     * 在 支持国际化 的接口服务中，可以直接获取到国际化数据
+     * 配置接口国际化
+     */
+    config.headers['Accept-Language'] = store.getters.language
+
     return config
   },
   // 请求失败处理函数

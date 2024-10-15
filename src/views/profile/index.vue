@@ -34,6 +34,8 @@ import { ref } from 'vue'
 // 接口获取数据
 import { feature } from '@/api/user'
 
+import { watchSwitchLang } from '@/utils/i18n'
+
 const activeName = ref('feature')
 
 const featureData = ref([])
@@ -41,6 +43,9 @@ const getFeatureData = async () => {
   featureData.value = await feature()
 }
 getFeatureData()
+
+// 当语言切换的时候，触发一下获取对应数据的方法,避免手动刷新浏览器
+watchSwitchLang(getFeatureData)
 </script>
 
 <style lang="scss" scoped>
