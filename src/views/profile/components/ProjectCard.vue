@@ -62,7 +62,7 @@
 
 <script setup>
 import PanThumb from '@/components/PanThumb'
-import { defineProps } from 'vue'
+import {} from 'vue'
 
 defineProps({
   features: {
