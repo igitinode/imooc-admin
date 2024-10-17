@@ -18,3 +18,8 @@ export const getHeaderRow = sheet => {
   }
   return headers
 }
+
+// 拖拽上传正则判断
+export const isExcel = file => {
+  return /\.(xlsx|xls|csv)$/.test(file.name)
+}
