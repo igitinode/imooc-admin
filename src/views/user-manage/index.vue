@@ -2,7 +2,9 @@
   <div class="user-manage-container">
     <el-card class="header">
       <div>
-        <el-button type="primary"> {{ $t('msg.excel.importExcel') }}</el-button>
+        <el-button type="primary" @click="onImportExcelClick">
+          {{ $t('msg.excel.importExcel') }}</el-button
+        >
         <el-button type="success">
           {{ $t('msg.excel.exportExcel') }}
         </el-button>
@@ -86,6 +88,7 @@
 import { ref } from 'vue'
 import { getUserManageList } from '@/api/user-manage'
 import { watchSwitchLang } from '@/utils/i18n'
+import { useRouter } from 'vue-router'
 
 // 数据相关
 // 列表数据
@@ -128,6 +131,14 @@ const handleSizeChange = currentSize => {
 const handleCurrentChange = currentPage => {
   page.value = currentPage
   getListData()
+}
+
+const router = useRouter()
+/**
+ * excel 导入点击事件
+ */
+const onImportExcelClick = () => {
+  router.push('/user/import')
 }
 </script>
 
