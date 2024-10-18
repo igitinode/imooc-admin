@@ -51,6 +51,7 @@ const handleChange = e => {
   // 获取一个文件
   const rawFile = files[0]
   if (!rawFile) return false
+  console.log(rawFile)
   upload(rawFile)
 }
 
@@ -146,6 +147,7 @@ const readerData = rawFile => {
  * 根据导入内容，生成数据
  */
 const generateData = excelData => {
+  console.log(excelData)
   props.onSuccess && props.onSuccess(excelData)
 }
 </script>
