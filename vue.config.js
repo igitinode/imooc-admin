@@ -20,6 +20,25 @@ module.exports = defineConfig({
         target: 'https://api.imooc-admin.lgdsunday.club/', // 要代理的服务器地址  这里不用写 api
         changeOrigin: true // 是否跨域
       }
+    },
+    // 方案一：直接禁止全屏运行时报错出现，非常非常暴力，但管用。报错没有消失，而是被我们隐藏了
+    // https://blog.csdn.net/qq_43768851/article/details/141401708
+    // client: {
+    //   overlay: false
+    // }
+
+    // 方案二：只解决这一个单独的报错，其他的错误正常抛出
+    // https://stackoverflow.com/questions/77201262/resizeobserver-loop-completed-with-undelivered-notifications-causing-cypress-t
+    // https://webpack.js.org/configuration/dev-server/#overlay
+    client: {
+      overlay: {
+        runtimeErrors: error => {
+          const ignoreErrors = [
+            'ResizeObserver loop completed with undelivered notifications.'
+          ]
+          return !ignoreErrors.includes(error.message)
+        }
+      }
     }
   },
 
