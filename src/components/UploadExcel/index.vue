@@ -51,7 +51,6 @@ const handleChange = e => {
   // 获取一个文件
   const rawFile = files[0]
   if (!rawFile) return false
-  console.log(rawFile)
   upload(rawFile)
 }
 
