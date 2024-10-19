@@ -95,6 +95,10 @@ const handleDragover = e => {
 const upload = rawFile => {
   excelUploadInput.value.value = null
   // 如果没有指定上传前回调的话
+  // beforeUpload 会在 excel 上传前进行回调，
+  // 父组件可以实现 beforeUpload 这个方法，如果返回 false 则会取消上传。
+  // 父组件可以利用这个特性做一些文件验证，
+  // 比如：文件大小超过 5M 就 return false ，取消上传
   if (!props.beforeUpload) {
     readerData(rawFile)
     return true
