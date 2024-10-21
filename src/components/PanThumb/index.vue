@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-import { defineProps } from 'vue'
+import {} from 'vue'
 defineProps({
   image: {
     type: String
