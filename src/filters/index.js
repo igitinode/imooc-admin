@@ -2,7 +2,7 @@
 // // https://v3-migration.vuejs.org/zh/breaking-changes/filters.html
 import dayjs from 'dayjs'
 
-const dateFilter = (val, format = 'YYYY-MM-DD') => {
+export const dateFilter = (val, format = 'YYYY-MM-DD') => {
   if (!isNaN(val)) {
     val = parseInt(val)
   }
