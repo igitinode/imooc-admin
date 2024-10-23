@@ -141,6 +141,7 @@ watchSwitchLang(getListData)
  */
 const onShowClick = id => {
   router.push(`/user/info/${id}`)
+  // router.push(`user/info/${id}`) 请求的路劲会多加一层：user/user/info/67180440cab6e0426873c58e 得不到正确解析
 }
 
 // 删除按钮点击事件
