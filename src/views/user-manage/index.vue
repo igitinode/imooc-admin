@@ -56,9 +56,12 @@
           width="260"
         >
           <template #default="{ row }">
-            <el-button type="primary" size="mini">{{
-              $t('msg.excel.show')
-            }}</el-button>
+            <el-button
+              type="primary"
+              size="mini"
+              @click="onShowClick(row._id)"
+              >{{ $t('msg.excel.show') }}</el-button
+            >
             <el-button type="info" size="mini">{{
               $t('msg.excel.showRole')
             }}</el-button>
@@ -104,6 +107,8 @@ const page = ref(1)
 // size 当前用户数
 const size = ref(2)
 
+const router = useRouter()
+
 // 获取数据的方法
 const getListData = async () => {
   const result = await getUserManageList({
@@ -131,8 +136,14 @@ onActivated(getListData)
 // 监听语言切换
 watchSwitchLang(getListData)
 
-// 删除按钮点击事件
+/**
+ * 查看按钮点击事件
+ */
+const onShowClick = id => {
+  router.push(`/user/info/${id}`)
+}
 
+// 删除按钮点击事件
 const i18n = useI18n()
 const onRemoveClick = row => {
   ElMessageBox.confirm(
@@ -167,7 +178,6 @@ const handleCurrentChange = currentPage => {
   getListData()
 }
 
-const router = useRouter()
 /**
  * excel 导入点击事件
  */
