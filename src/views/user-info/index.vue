@@ -1,10 +1,12 @@
 <template>
   <div class="user-info-container">
     <el-card class="print-box">
-      <el-button type="primary">{{ $t('msg.userInfo.print') }}</el-button>
+      <el-button type="primary" v-print="printObj" :loading="printLoading">{{
+        $t('msg.userInfo.print')
+      }}</el-button>
     </el-card>
     <el-card>
-      <div class="user-info-box">
+      <div id="userInfoBox" class="user-info-box">
         <!-- 标题 -->
         <h2 class="title">{{ $t('msg.userInfo.title') }}</h2>
 
@@ -83,9 +85,9 @@
 </template>
 
 <script setup>
+import { defineProps, ref } from 'vue'
 import { userDetail } from '@/api/user-manage'
 import { watchSwitchLang } from '@/utils/i18n'
-import { defineProps, ref } from 'vue'
 
 const props = defineProps({
   id: {
@@ -104,6 +106,24 @@ const getUserDetail = async () => {
 getUserDetail()
 // 语言切换
 watchSwitchLang(getUserDetail)
+
+// 打印
+const printLoading = ref(false)
+// 创建打印配置对象
+const printObj = {
+  // 设置打印区域 html 元素设置id
+  id: 'userInfoBox',
+  // 打印标题
+  popTitle: 'imooc-vue-element-admin',
+  // 打印前回调
+  beforeOpenCallback(vue) {
+    printLoading.value = true
+  },
+  // 执行打印回调
+  openCallback(vue) {
+    printLoading.value = false
+  }
+}
 </script>
 
 <style lang="scss" scoped>

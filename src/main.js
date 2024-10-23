@@ -19,6 +19,9 @@ import i18n from '@/i18n'
 // 导入全局属性
 import installFilter from '@/filters'
 
+// 导入第三方打印指令工具
+import installDirective from '@/directives'
+
 const app = createApp(App)
 installElementPlus(app)
 
@@ -27,5 +30,8 @@ installIcons(app)
 
 // 注册全局属性, 替代局部过滤器
 installFilter(app)
+
+// 注册全局网页打印指令
+installDirective(app)
 
 app.use(store).use(router).use(i18n).mount('#app')
