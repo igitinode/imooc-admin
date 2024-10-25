@@ -29,8 +29,9 @@
 import { ref, watch } from 'vue'
 import { permissionList } from '@/api/permission'
 import { watchSwitchLang } from '@/utils/i18n'
-// import { useI18n } from 'vue-i18n'
-import { rolePermission } from '@/api/role'
+import { useI18n } from 'vue-i18n'
+import { rolePermission, distributePermission } from '@/api/role'
+import { ElMessage } from 'element-plus'
 
 const props = defineProps({
   modelValue: {
@@ -47,7 +48,13 @@ const emits = defineEmits(['update:modelValue'])
 /**
   确定按钮点击事件
  */
+const i18n = useI18n()
 const onConfirm = async () => {
+  await distributePermission({
+    roleId: props.roleId,
+    permissions: treeRef.value.getCheckedKeys()
+  })
+  ElMessage.success(i18n.t('msg.role.updateRoleSuccess'))
   closed()
 }
 
