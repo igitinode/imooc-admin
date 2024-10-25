@@ -26,7 +26,9 @@
 import { ref, watch } from 'vue'
 import { roleList } from '@/api/role'
 import { watchSwitchLang } from '@/utils/i18n'
-import { userRoles } from '@/api/user-manage'
+import { userRoles, updateRole } from '@/api/user-manage'
+import { ElMessage } from 'element-plus'
+import { useI18n } from 'vue-i18n'
 
 const props = defineProps({
   modelValue: {
@@ -38,12 +40,26 @@ const props = defineProps({
     required: true
   }
 })
-const emits = defineEmits(['update:modelValue'])
+const emits = defineEmits(['update:modelValue', 'updateRole'])
 
 /**
   确定按钮点击事件
  */
+const i18n = useI18n()
 const onConfirm = async () => {
+  // 处理数据结构,处理成接口需要的数据格式
+  const roles = userRoleTitleList.value.map(title => {
+    return allRoleList.value.find(role => role.title === title)
+  })
+
+  await updateRole(props.userId, roles)
+
+  ElMessage.success(i18n.t('msg.role.updateRoleSuccess'))
+
+  // 更新当前页面角色的新权限展示
+  // 角色更新成功，通知父类重新渲染数据
+  emits('updateRole')
+
   closed()
 }
 

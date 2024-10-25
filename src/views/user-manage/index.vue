@@ -88,6 +88,7 @@
     <roles-dialog
       v-model="roleDialogVisible"
       :userId="selectUserId"
+      @updateRole="getListData"
     ></roles-dialog>
   </div>
 </template>
@@ -120,7 +121,7 @@ const getListData = async () => {
     page: page.value,
     size: size.value
   })
-  console.log(result)
+  // console.log(result)
 
   tableData.value = result.list
   total.value = result.total
