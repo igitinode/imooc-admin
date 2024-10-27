@@ -28,7 +28,21 @@ router.beforeEach(async (to, from, next) => {
         // dispatch 异步 action 动作,await 让当前操作变成同步操作
         // 出现接口401错误，手动删除 localStorage 的token，因为过期了。
         // 完成退出方案之后就不需要手动删除了
-        await store.dispatch('user/getUserInfo')
+        // 触发获取用户信息的 action，并获取用户当前权限
+        const { permission } = await store.dispatch('user/getUserInfo')
+        // permission 后端获取到的私有路由权限数据
+        // 处理用户权限，筛选出需要添加的路由
+        const filterRoutes = await store.dispatch(
+          'permission/filterRoutes',
+          permission.menus
+        )
+        // 利用 addRoute 循环添加
+        filterRoutes.forEach(item => {
+          router.addRoute(item)
+        })
+        // 添加完动态路由之后，需要在进行一次主动跳转
+        // 因为我们主动获取了 getUserInfo 动作的返回值，所以不要忘记在 getUserInfo 中 return res
+        return next(to.path)
       }
       next()
     }
