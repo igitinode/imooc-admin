@@ -73,7 +73,8 @@ export default {
      * 退出登录
      */
     logout() {
-      // 0.清理私有路由表信息
+      // 0. 清理私有路由表信息
+      // src/permission.js 路由前置守卫增加的filterRoutes
       resetRouter()
       // 1. 清理掉当前用户缓存数据
       // 1.1 清理 token
