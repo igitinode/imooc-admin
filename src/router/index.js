@@ -5,6 +5,7 @@ import ArticleRouter from './modules/Article'
 import PermissionListRouter from './modules/PermissionList'
 import RoleListRouter from './modules/RoleList'
 import UserManageRouter from './modules/UserManage'
+import store from '@/store'
 
 /**
  * 私有路由表：权限路由
@@ -63,5 +64,23 @@ const router = createRouter({
   // 私有路由表 和 共有路由表  进行统一的数组合并
   routes: publicRoutes
 })
+
+/**
+ * 初始化路由表
+ * 退出的时候清空添加的私有路由
+ * https://router.vuejs.org/zh/api/interfaces/Router.html#Methods-removeRoute
+ */
+export function resetRouter() {
+  if (
+    store.getters.userInfo &&
+    store.getters.userInfo.permission &&
+    store.getters.userInfo.permission.menus
+  ) {
+    const menus = store.getters.userInfo.permission.menus
+    menus.forEach(menu => {
+      router.removeRoute(menu)
+    })
+  }
+}
 
 export default router

@@ -1,7 +1,7 @@
 import { login, getUserInfo } from '@/api/sys'
 import md5 from 'md5'
 import { TOKEN } from '@/constant'
-import router from '@/router'
+import router, { resetRouter } from '@/router'
 
 // 本地缓存 LocalStorage 的操作
 import { setItem, getItem, removeAllItem } from '@/utils/storage'
@@ -73,6 +73,8 @@ export default {
      * 退出登录
      */
     logout() {
+      // 0.清理私有路由表信息
+      resetRouter()
       // 1. 清理掉当前用户缓存数据
       // 1.1 清理 token
       this.commit('user/setToken', '')
