@@ -20,7 +20,8 @@ const messages = {
 
 // 国际化缓存读取
 function getLanguage() {
-  return store && store.getters && store.getters.language
+  // 有可能会是 undefined，设置一个默认值 zh
+  return (store && store.getters && store.getters.language) || 'zh'
 }
 // 2.创建 locale 语言变量
 // const locale = 'zh'
