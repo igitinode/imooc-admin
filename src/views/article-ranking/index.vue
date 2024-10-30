@@ -59,6 +59,7 @@ import { dynamicData, selectDynamicLabel, tableColumns } from './dynamic'
 import { tableRef, initSortable } from './sortable'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { useI18n } from 'vue-i18n'
+import { useRouter } from 'vue-router'
 
 // 数据相关
 const tableData = ref([])
@@ -86,8 +87,13 @@ onMounted(() => {
   initSortable(tableData, getListData)
 })
 
-// 点击查看
-const onShowClick = row => {}
+/**
+ * 查看按钮点击事件
+ */
+const router = useRouter()
+const onShowClick = row => {
+  router.push(`/article/${row._id}`)
+}
 
 // 点击删除
 const i18n = useI18n()
