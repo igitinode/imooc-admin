@@ -51,10 +51,12 @@
 </template>
 
 <script setup>
-import { ref, onActivated } from 'vue'
+import { ref, onActivated, onMounted } from 'vue'
 import { getArticleList } from '@/api/article'
 import { watchSwitchLang } from '@/utils/i18n'
 import { dynamicData, selectDynamicLabel, tableColumns } from './dynamic'
+// 拖拽插件
+import { tableRef, initSortable } from './sortable'
 
 // 数据相关
 const tableData = ref([])
@@ -76,6 +78,11 @@ getListData()
 watchSwitchLang(getListData)
 // 处理数据不重新加载的问题
 onActivated(getListData)
+
+// 表格拖拽相关
+onMounted(() => {
+  initSortable(tableData, getListData)
+})
 
 // 点击查看
 const onShowClick = row => {}
@@ -123,5 +130,11 @@ const handleCurrentChange = currentPage => {
     margin-top: 20px;
     text-align: center;
   }
+}
+// 拖拽时的样式
+::v-deep .sortable-ghost {
+  opacity: 0.6;
+  color: #fff !important;
+  background: #304156 !important;
 }
 </style>
