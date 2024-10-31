@@ -74,5 +74,16 @@ module.exports = defineConfig({
       })
       // 结束
       .end()
+    // 新增规则，处理 element-plus 2 错误
+    config.module
+      // element-plus-2 针对什么的规则，可以自由定义
+      .rule('element-plus-2')
+      // 规则匹配的文件
+      .test(/\.mjs$/)
+      // https://webpack.docschina.org/configuration/module/#ruletype
+      // javascript/auto 固定写法
+      .type('javascript/auto')
+      .include.add(/node_modules/)
+      .end()
   }
 })
