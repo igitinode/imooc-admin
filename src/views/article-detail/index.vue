@@ -20,12 +20,12 @@
 
 <script setup>
 import { ref } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { articleDetail } from '@/api/article'
 
 // 获取数据
 const route = useRoute()
-// 获取url的参数
+// 获取url的参数,路由跳转的ID
 const articleId = route.params.id
 const detail = ref({})
 const getArticleDetail = async () => {
@@ -36,7 +36,10 @@ getArticleDetail()
 /**
  * 编辑按钮点击事件
  */
-const onEditClick = () => {}
+const router = useRouter()
+const onEditClick = () => {
+  router.push(`/article/editor/${articleId}`)
+}
 </script>
 
 <style lang="scss" scoped>
