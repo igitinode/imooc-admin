@@ -19,7 +19,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onActivated } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { articleDetail } from '@/api/article'
 
@@ -31,7 +31,9 @@ const detail = ref({})
 const getArticleDetail = async () => {
   detail.value = await articleDetail(articleId)
 }
-getArticleDetail()
+
+onActivated(getArticleDetail)
+// getArticleDetail()
 
 /**
  * 编辑按钮点击事件
