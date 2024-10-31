@@ -1,5 +1,7 @@
 <template>
   <div class="login-container">
+    <!-- 直接引用icon -->
+    <!-- <Edit style="width: 10em; height: 10em; margin-right: 8px" /> -->
     <el-form
       class="login-form"
       ref="loginFormRef"
@@ -60,6 +62,9 @@ import { validatePassword } from './rules'
 import { useStore } from 'vuex'
 import LangSelect from '@/components/LangSelect'
 import { useI18n } from 'vue-i18n'
+// https://element-plus.org/zh-CN/component/icon.html#icon-%E5%9B%BE%E6%A0%87
+// icons 图标使用,引用单个 icon
+// import { Edit } from '@element-plus/icons-vue'
 
 // 数据源
 const loginForm = ref({
