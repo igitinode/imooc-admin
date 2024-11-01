@@ -2,9 +2,11 @@
   <el-card class="container">
     <el-row :gutter="32" v-if="chartTrendData.allAmount">
       <el-col :span="6">
+        <!-- 数据模块 -->
         <trend-data-vue :data="chartTrendData" />
       </el-col>
       <el-col :span="18">
+        <!-- 图标模块 -->
         <trend-chart-vue :data="chartTrendData" />
       </el-col>
     </el-row>
