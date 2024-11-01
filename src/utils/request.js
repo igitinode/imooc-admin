@@ -41,7 +41,6 @@ service.interceptors.request.use(
      * 在 支持国际化 的接口服务中，可以直接获取到国际化数据
      * 配置接口国际化
      */
-    console.log(store.getters.language)
     config.headers['Accept-Language'] = store.getters.language
 
     return config

@@ -42,6 +42,17 @@ export const publicRoutes = [
           icon: 'personnel'
         }
       },
+      // 数据可视化
+      {
+        path: '/chart',
+        name: 'chart',
+        component: () =>
+          import(/* webpackChunkName: "chart" */ '@/views/chart/index'),
+        meta: {
+          title: 'chart',
+          icon: 'chart'
+        }
+      },
       // 404
       {
         path: '/404',
