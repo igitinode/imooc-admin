@@ -1,6 +1,6 @@
 <template>
   <el-card class="container">
-    <el-row :gutter="32">
+    <el-row :gutter="32" v-if="chartTrendData.allAmount">
       <el-col :span="6">
         <trend-data-vue :data="chartTrendData" />
       </el-col>
@@ -12,13 +12,21 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import trendDataVue from './trend-data.vue'
 import trendChartVue from './trend-chart.vue'
+import { getChartTrend } from '@/api/chart'
+
+const chartTrendData = ref({})
+const getChartTrendData = async () => {
+  const res = await getChartTrend()
+  chartTrendData.value = res
+}
+getChartTrendData()
 </script>
 
 <style lang="scss" scoped>
 .container {
   height: 286px;
-  background-color: #bcbfc3;
 }
 </style>
