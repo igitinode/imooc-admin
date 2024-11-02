@@ -7,6 +7,8 @@
 import { ref, onMounted } from 'vue'
 // 2. 导入 `ECharts` 模块：
 import * as echarts from 'echarts'
+import { useI18n } from 'vue-i18n'
+import { watchSwitchLang } from '@/utils/i18n'
 
 const props = defineProps({
   data: {
@@ -15,6 +17,7 @@ const props = defineProps({
   }
 })
 
+const i18n = useI18n()
 // 3. 利用 echarts.init(target) 方法，获取 mChart 实例：
 // target.value 获取到的是一个 DOM 节点
 const target = ref(null)
@@ -51,7 +54,7 @@ const renderChart = () => {
     // 22 图例配置
     legend: {
       // 图例数据
-      data: ['月累计收益', '日收益曲线'],
+      data: [i18n.t('msg.chart.monthIncome'), i18n.t('msg.chart.dayIncome')],
       // 图例位置
       right: 0
     },
@@ -89,7 +92,7 @@ const renderChart = () => {
       },
       // 刻度上展示的文字
       axisLabel: {
-        formatter: '{value} 万元'
+        formatter: `{value} ${i18n.t('msg.chart.unit')}`
       }
     },
     // 66 图表类型
@@ -97,7 +100,7 @@ const renderChart = () => {
       // 第一个图表
       {
         // 图表名字，对应 legend.data[0]
-        name: '月累计收益',
+        name: i18n.t('msg.chart.monthIncome'),
         // 图表类型
         type: 'bar',
         // 柱的宽度
@@ -106,7 +109,7 @@ const renderChart = () => {
         tooltip: {
           // 提示框展示的内容
           valueFormatter: function (value) {
-            return value + '万元'
+            return value + i18n.t('msg.chart.unit')
           }
         },
         // 数据源
@@ -115,7 +118,8 @@ const renderChart = () => {
       // 第二个图表
       {
         // 图表名字，对应 legend.data[1]
-        name: '日收益曲线',
+        // 日收益曲线
+        name: i18n.t('msg.chart.dayIncome'),
         // 图表类型
         type: 'line',
         // 颜色
@@ -126,7 +130,7 @@ const renderChart = () => {
         tooltip: {
           // 提示框展示的内容
           valueFormatter: function (value) {
-            return value + '万元'
+            return value + i18n.t('msg.chart.unit')
           }
         },
         // 数据源
@@ -137,6 +141,9 @@ const renderChart = () => {
   // 5. 最后利用 mChart.setOption 方法配置 options
   mChart.setOption(options)
 }
+
+// 国际化
+watchSwitchLang(renderChart)
 </script>
 
 <style lang="scss" scoped>
