@@ -88,7 +88,7 @@ const calendarItemBgClass = day => {
 
 <style lang="scss" scoped>
 .container {
-  height: 443px;
+  height: 520px;
   .calendar {
     ::v-deep .el-calendar__body {
       padding: 0 12px 12px;
@@ -109,14 +109,14 @@ const calendarItemBgClass = day => {
       .profit {
         background-color: #f3fff3;
         span {
-          color: #649840;
+          color: #b65d59;
         }
       }
       // 负收益
       .loss {
         background-color: #ffe7e7;
         span {
-          color: #b65d59;
+          color: #649840;
         }
       }
 
