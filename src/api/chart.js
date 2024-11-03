@@ -29,3 +29,12 @@ export const getChartTimeAmount = date => {
     }
   })
 }
+
+/**
+ * 饼图数据
+ */
+export const getChartPie = () => {
+  return request({
+    url: '/chart/pie'
+  })
+}
