@@ -1,7 +1,7 @@
 <template>
   <el-row :gutter="20">
     <el-col :span="18">
-      <s2></s2>
+      <s2 :data="sheetData"></s2>
     </el-col>
     <el-col :span="6">
       <sheet-label
@@ -20,7 +20,7 @@
 import { ref } from 'vue'
 import S2 from './components/S2.vue'
 import SheetLabel from './components/SheetLabel.vue'
-import { getChartRegions } from '@/api/chart'
+import { getChartRegions, getChartSheet } from '@/api/chart'
 import { watchSwitchLang } from '@/utils/i18n'
 
 /**
@@ -30,7 +30,9 @@ const regionsData = ref([])
 const getChartRegionsData = async () => {
   const { regions } = await getChartRegions()
   regionsData.value = regions
-  // TODO：获取该大区对应的数据
+  // 获取该大区对应的数据
+  // 等所有大区数据获取到了之后，默认先查询第一个大区的表格数据
+  getChartSheetData(regionsData.value[0].id)
 }
 getChartRegionsData()
 
@@ -46,7 +48,17 @@ const currentRegionsIndex = ref(0)
  */
 const onChangeRegion = index => {
   currentRegionsIndex.value = index
-  // TODO：获取该大区对应的数据
+  // 切换大区，重新获取该大区对应的数据
+  getChartSheetData(regionsData.value[index].id)
+}
+
+/**
+ * 大区对应的表格数据
+ */
+const sheetData = ref([])
+const getChartSheetData = async id => {
+  const res = await getChartSheet(id)
+  sheetData.value = res
 }
 </script>
 

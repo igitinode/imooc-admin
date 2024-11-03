@@ -68,11 +68,11 @@ defineProps({
   }
 
   .profit {
-    color: #b65d59;
+    color: #649840;
   }
 
   .loss {
-    color: #649840;
+    color: #b65d59;
   }
 }
 
