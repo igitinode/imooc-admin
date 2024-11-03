@@ -29,8 +29,9 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { getChartCalendar } from '@/api/chart'
+import emitter from '@/utils/eventHub'
 
 /**
  * 获取数据
@@ -84,6 +85,14 @@ const calendarItemBgClass = day => {
   }
   return ''
 }
+
+/**
+ * 触发日期改变的事件
+ * 触发事件中心事件调用
+ */
+watch(currentDate, val => {
+  emitter.emit('calendarChange', val)
+})
 </script>
 
 <style lang="scss" scoped>

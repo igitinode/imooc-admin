@@ -12,6 +12,7 @@
 import { onMounted, ref } from 'vue'
 import { getChartTimeAmount } from '@/api/chart'
 import * as echarts from 'echarts'
+import emitter from '@/utils/eventHub'
 
 // 国际化相关
 import { useI18n } from 'vue-i18n'
@@ -28,7 +29,7 @@ const getData = async date => {
   // 渲染图表
   renderChart()
 }
-getData('2024-11-02')
+getData(new Date())
 
 /**
  * 图表初始化
@@ -179,6 +180,15 @@ const renderChart = () => {
 
 // 国际化
 watchSwitchLang(renderChart)
+
+/**
+ * 与日历图联通
+ * 通过 on 方法监听事件
+ * val 传递过来的日期，获取数据
+ */
+emitter.on('calendarChange', val => {
+  getData(val)
+})
 </script>
 
 <style lang="scss" scoped>
