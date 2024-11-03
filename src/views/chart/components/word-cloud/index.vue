@@ -15,6 +15,7 @@ import * as echarts from 'echarts'
 // 第三方文档云图，echart 原生没有
 // https://github.com/ecomfe/echarts-wordcloud
 import 'echarts-wordcloud'
+import wordcloudBg from '@/assets/wordcloud.png'
 import { randomRGB } from '@/utils/color'
 import { useI18n } from 'vue-i18n'
 import { watchSwitchLang } from '@/utils/i18n'
@@ -47,6 +48,9 @@ onMounted(() => {
  * 渲染图表
  */
 const renderChart = () => {
+  // 图像轮廓
+  const maskImage = new Image()
+  maskImage.src = wordcloudBg
   const option = {
     title: {
       text: i18n.t('msg.chart.cloudChartTitle')
@@ -61,6 +65,8 @@ const renderChart = () => {
         rotationRange: [0, 0],
         // 单词之间的间距
         gridSize: 0,
+        // 绘制将排除图像的轮廓
+        maskImage: maskImage,
         // 渲染动画
         layoutAnimation: true,
         // 字体
@@ -80,11 +86,15 @@ const renderChart = () => {
       }
     ]
   }
-  mChart.setOption(option)
+  // 一旦有了maskImage 属性,就需要等待图像加载完成之后
+  // 再触发 setOption 方法
+  maskImage.onload = function () {
+    mChart.setOption(option)
+  }
 }
 
 // 国际化
-watchSwitchLang(renderChart)
+watchSwitchLang(getWordCloudData)
 </script>
 
 <style lang="scss" scoped>
