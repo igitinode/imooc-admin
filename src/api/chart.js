@@ -38,3 +38,12 @@ export const getChartPie = () => {
     url: '/chart/pie'
   })
 }
+
+/**
+ * 文字云图数据
+ */
+export const getChartWordCloud = () => {
+  return request({
+    url: '/chart/wordcloud'
+  })
+}

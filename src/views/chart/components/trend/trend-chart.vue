@@ -24,7 +24,6 @@ const target = ref(null)
 let mChart
 // 组件挂载之后才能获取到有效 DOM
 onMounted(() => {
-  console.log(target.value)
   mChart = echarts.init(target.value)
   renderChart()
 })
