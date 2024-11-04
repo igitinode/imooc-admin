@@ -4,7 +4,7 @@
       padding: 0
     }"
   >
-    <div class="container" ref="target">s2</div>
+    <div class="container" ref="target"></div>
   </el-card>
 </template>
 
